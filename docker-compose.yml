@@ -1,21 +1,20 @@
 services:
-  rest_api_mg:
+  web_app:
     image: angeluz07/mygym:0.0.1 # use local if exists
     build: # if doesnt, build it
       context: .
       dockerfile: ./deploy/Dockerfile
-    container_name: rest_api_mg
+    container_name: web_app_mg
     ports:
       - "8000:8000"
-    extra_hosts:
-      - "localhost:host-gateway"
+    #extra_hosts:
+    #  - "localhost:host-gateway"
     environment:
-      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
-      - CLERK_URI=${CLERK_URI}
       - POSTGRES_URI=${POSTGRES_URI}
-    command: ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+      - DJANGO_DEBUG=True
     volumes:
-      - ./src:/app/src:z
+      - ./django-app:/app:z
     deploy:
       resources:
         limits:
@@ -25,5 +24,5 @@ services:
           cpus: "0.5"
           memory: 0.25G  
     profiles:
-      - rest_api_mg
+      - web_app_mg
  

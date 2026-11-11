@@ -1,0 +1,7 @@
+fastapi[standard]==0.135.3
+uvicorn[standard]==0.24.0
+python-dotenv==1.2.2 # for env vars
+pyjwt[crypto]
+psycopg[binary]>=3.0
+sqlalchemy>=2.0
+python-dateutil

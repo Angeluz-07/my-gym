@@ -15,7 +15,9 @@ import os
 import environ
 import dj_database_url
 
-env = environ.Env()
+env = environ.Env(
+    DEBUG=(bool, False),
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,10 +30,10 @@ POSTGRES_URI = env("POSTGRES_URI")
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-#(4-3i2=855wdxwh@)=v001j+o%60kcah4g9ms$1a*8-sn-moz"
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env("DJANGO_DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -44,7 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",    
+    "django.contrib.staticfiles",
     "members",
 ]
 
