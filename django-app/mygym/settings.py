@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+import dj_database_url
+
+env = environ.Env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+POSTGRES_URI = env("POSTGRES_URI")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -31,13 +39,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "members.apps.MembersConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    "django.contrib.staticfiles",    
+    "members",
 ]
 
 MIDDLEWARE = [
@@ -73,11 +81,34 @@ WSGI_APPLICATION = "mygym.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+
+def parse_postgres_uri(uri: str) -> dict:
+    import urllib.parse
+
+    parsed = urllib.parse.urlparse(uri)
+    query_params = urllib.parse.parse_qs(parsed.query)
+
+    return {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": parsed.path.lstrip("/"),
+        "USER": urllib.parse.unquote(parsed.username) if parsed.username else "",
+        "PASSWORD": urllib.parse.unquote(parsed.password) if parsed.password else "",
+        "HOST": parsed.hostname or "",
+        "PORT": parsed.port or 5432,
+        "OPTIONS": {
+            "sslmode": query_params.get("sslmode", ["require"])[0],
+        },
     }
+
+
+postgres_config = parse_postgres_uri(POSTGRES_URI)
+
+DATABASES = {
+    "default": postgres_config,
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # },
 }
 
 

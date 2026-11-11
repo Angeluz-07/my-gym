@@ -1,2 +1,5 @@
 Django
 djangorestframework
+django-environ
+psycopg[binary,pool]
+dj-database-url
