@@ -19,13 +19,13 @@ variable "container_port" {
   default     = 8000
 }
 
-variable "mongodb_name" {
-  description = "Nombre de la base de datos"
-  type    = string
+variable "django_secret_key" {
+  description = "django secret key"
+  type        = string
 }
 
-# Definimos las colecciones iniciales aquí
-variable "mongo_collections" {
-  description = "Colecciones a usar"
-  type    = list(string)
+
+variable "database_url" {
+  description = "database uri"
+  type        = string
 }

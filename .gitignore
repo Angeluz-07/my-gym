@@ -137,3 +137,6 @@ workspace/default
 .env
 
 staticfiles/
+datadump.json
+migrations/
+tf.bat
