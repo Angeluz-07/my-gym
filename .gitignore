@@ -135,3 +135,5 @@ recipe
 __pycache__
 workspace/default
 .env
+
+staticfiles/

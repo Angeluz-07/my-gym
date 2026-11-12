@@ -12,7 +12,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./django-app /app
 
-EXPOSE 8000
  
 # Run Django’s development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+RUN chmod +x /app/entrypoint.sh
+
+EXPOSE 8000
+
+# El contenedor arranca ejecutando el entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
