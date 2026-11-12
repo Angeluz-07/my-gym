@@ -16,7 +16,7 @@ import environ
 import dj_database_url
 
 env = environ.Env(
-    DEBUG=(bool, False),
+    DJANGO_DEBUG=(bool, False),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +35,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DJANGO_DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"] # todo:update
 
 
 # Application definition
