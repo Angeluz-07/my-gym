@@ -7,6 +7,17 @@ from django.template import loader
 from .models import Member
 from typing import List
 
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+from .models import Member
+from .forms import MemberForm
+
+class MemberCreateView(CreateView):
+    model = Member
+    form_class = MemberForm
+    template_name = 'members/member_form.html'
+    success_url = reverse_lazy('index')
+
 
 def get_wa_link(phone, client_name, cost, date):
     import urllib.parse
@@ -31,13 +42,16 @@ def index(request):
     members = Member.objects.select_related("membership").all()
     members: List[Member] = list(members)
     for m in members:
-        m.wa_link = get_wa_link(
-            m.phone, m.name, m.membership.cost, m.membership.expires_at
-        )
+        if hasattr(m,"membership"):
+            m.wa_link = get_wa_link(
+                m.phone, m.name, m.membership.cost, m.membership.expires_at
+            )
+        else:
+            m.wa_link = None
     template = loader.get_template("members/index.html")
     context = {"members": members}
     return HttpResponse(template.render(context, request))
 
 
-def detail(request, member_id):
-    return HttpResponse("You're looking at member %s." % member_id)
+# def detail(request, member_id):
+#     return HttpResponse("You're looking at member %s." % member_id)

@@ -1,0 +1,21 @@
+{% extends 'members/base.html' %}
+
+{% block title %}Agregar Miembro - MyGym{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-base-100 shadow-xl rounded-box p-6 mt-6">
+    <h2 class="text-xl font-bold mb-4">Registrar Nuevo Miembro</h2>
+    
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        
+        <!-- Renderizado automático limpio con clases de Tailwind/DaisyUI -->
+        {{ form.as_p }}
+        
+        <div class="flex justify-end gap-2 mt-4">
+            <a href="{% url 'index' %}" class="btn btn-ghost">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar Miembro</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
