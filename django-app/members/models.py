@@ -52,6 +52,27 @@ class Membership(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     @property
+    def last_month(self) -> str:
+        MESES = {
+            1: "enero",
+            2: "febrero",
+            3: "marzo",
+            4: "abril",
+            5: "mayo",
+            6: "junio",
+            7: "julio",
+            8: "agosto",
+            9: "septiembre",
+            10: "octubre",
+            11: "noviembre",
+            12: "diciembre",
+        }
+
+        from datetime import datetime
+
+        return MESES[self.start_date.month].capitalize() + " / " + str(self.start_date.year)[-2:]
+
+    @property
     def due_date(self) -> date:
         next_month = self.start_date + relativedelta(months=1)
         return date(next_month.year, next_month.month, 1)

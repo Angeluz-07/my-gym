@@ -15,11 +15,10 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Teléfono</th>
+            <th>Nombre</th>            
             <th>Estado</th>
             <th>Acción</th>
+            <th>Último mes</th>
           </tr>
         </thead>
         <tbody>
@@ -27,15 +26,13 @@
           <tr class="hover:bg-base-300">
             <th>{{ forloop.counter }}</th>
             <td><a href="" class="font-semibold text-primary">{{ m.member.name }}</a></td>
-            <td>{{ m.member.email }}</td>
-            <td>{{ m.member.phone }}</td>
             <td>
               {% if m.is_up_to_date %}
               <span class="badge badge-success gap-1">🟢 Al día</span>
               {% else %}
               <span class="badge badge-error gap-1">🔴 En mora</span>
               {% endif %}
-            </td>
+            </td>    
             <td>
               <a href="{{ m.wa_link }}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm gap-1">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -44,6 +41,9 @@
                 Notificar
               </a>
             </td>
+
+            <td>{{ m.last_month }}</td>
+            <!--td>{{ m.member.phone }}</td-->      
           </tr>
           {% empty %}
           <tr>
