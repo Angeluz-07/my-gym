@@ -1,11 +1,12 @@
 from django.urls import path
 
-from . import views
+from members.views.index import index
 
-from .views import MemberCreateView
+from members.views.members import MemberCreateView, MemberListView
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path('add/', MemberCreateView.as_view(), name='member_add'),
-    #path("<str:member_id>/", views.detail, name="detail"),
+    path("", index, name="index"),
+    path("list/", MemberListView.as_view(), name="member_list"),
+    path("add/", MemberCreateView.as_view(), name="member_add"),
+    # path("<str:member_id>/", views.detail, name="detail"),
 ]

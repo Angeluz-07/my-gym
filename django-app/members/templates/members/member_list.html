@@ -1,0 +1,41 @@
+{% extends 'members/base.html' %} {% block content %}
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold">Gestión de Miembros</h1>
+  <a href="{% url 'member_add' %}" class="btn btn-primary">+ Nuevo Miembro</a>
+</div>
+
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body">
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in members %}
+          <tr class="hover:bg-base-300">
+            <th>{{ forloop.counter }}</th>
+            <td>
+              <a href="" class="font-semibold text-primary">{{ m.name }}</a>
+            </td>
+            <td>{{ m.email }}</td>
+            <td>{{ m.phone }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="text-center text-gray-500 py-4">
+              No hay miembros registrados todavía.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
