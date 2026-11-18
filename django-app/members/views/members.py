@@ -16,13 +16,20 @@ from django.views.generic.edit import CreateView
 from django.views.generic import ListView
 from members.models import Member, Membership
 from members.forms import MemberForm
+from django.views.generic.edit import UpdateView
+
+
+class MemberUpdateView(UpdateView):
+    model = Member
+    form_class = MemberForm
+    template_name = "members/member_form_upd.html"  # ¡Reutilizamos el mismo formulario!
+    success_url = reverse_lazy("member_list")
 
 
 class MemberListView(ListView):
     model = Member
     template_name = "members/member_list.html"
-    context_object_name = 'members'
-
+    context_object_name = "members"
 
 
 class MemberCreateView(CreateView):

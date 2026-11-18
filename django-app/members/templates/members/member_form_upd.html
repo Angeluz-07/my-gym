@@ -1,0 +1,86 @@
+{% extends 'members/base.html' %} {% block title %}Agregar Miembro -
+MyGym{%endblock %} {% block content %}
+<div class="max-w-md mx-auto bg-base-100 shadow-xl rounded-box p-6 mt-6">
+  <h2 class="text-xl font-bold mb-4">Miembro</h2>
+  <form method="post" class="space-y-4">
+    {% csrf_token %}
+
+    <!-- Errores generales del formulario si los hay -->
+    {% if form.non_field_errors %}
+    <div class="alert alert-error text-sm py-2">
+      {{ form.non_field_errors }}
+    </div>
+    {% endif %}
+
+    <!-- 1. Campo Nombre -->
+    <div class="form-control w-full">
+      <label class="label">
+        <span class="label-text font-semibold">Nombre</span>
+      </label>
+      <input
+        type="text"
+        name="name"
+        value="{{ form.name.value|default:'' }}"
+        class="input input-bordered w-full"
+        required
+      />
+      {% if form.name.errors %}
+      <label class="label"
+        ><span class="label-text-alt text-error"
+          >{{ form.name.errors.0 }}</span
+        ></label
+      >
+      {% endif %}
+    </div>
+
+    <!-- 2. Campo Teléfono -->
+    <div class="form-control w-full">
+      <label class="label">
+        <span class="label-text font-semibold">Teléfono</span>
+      </label>
+      <input
+        type="text"
+        name="phone"
+        value="{{ form.phone.value|default:'' }}"
+        class="input input-bordered w-full"
+        required
+      />
+      {% if form.phone.errors %}
+      <label class="label"
+        ><span class="label-text-alt text-error"
+          >{{ form.phone.errors.0 }}</span
+        ></label
+      >
+      {% endif %}
+    </div>
+
+    <!-- 3. Campo Email -->
+    <div class="form-control w-full">
+      <label class="label">
+        <span class="label-text font-semibold">Email</span>
+      </label>
+      <input
+        type="email"
+        name="email"
+        value="{{ form.email.value|default:'' }}"
+        class="input input-bordered w-full"
+      />
+      {% if form.email.errors %}
+      <label class="label"
+        ><span class="label-text-alt text-error"
+          >{{ form.email.errors.0 }}</span
+        ></label
+      >
+      {% endif %}
+    </div>
+
+
+
+    <!-- Botones de acción -->
+    <div class="flex justify-end gap-2 pt-4">
+      <a href="{% url 'index' %}" class="btn btn-ghost">Cancelar</a>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

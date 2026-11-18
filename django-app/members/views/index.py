@@ -12,7 +12,6 @@ from django.views.generic.edit import CreateView
 from django.views.generic import ListView
 from members.forms import MemberForm
 
-
 class MembershipListView(ListView):
     model = Membership
     template_name = "members/membership_list.html"

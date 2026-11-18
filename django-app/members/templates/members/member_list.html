@@ -25,6 +25,15 @@
             </td>
             <td>{{ m.email }}</td>
             <td>{{ m.phone }}</td>
+            <td>
+              <!-- Botón que dispara la edición apuntando al ID del miembro -->
+              <a
+                href="{% url 'member_upd' m.id %}"
+                class="btn btn-sm btn-primary"
+              >
+                Editar
+              </a>
+            </td>
           </tr>
           {% empty %}
           <tr>

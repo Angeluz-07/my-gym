@@ -4,3 +4,4 @@ django-environ
 psycopg[binary,pool]
 dj-database-url
 python-dateutil
+django-debug-toolbar
